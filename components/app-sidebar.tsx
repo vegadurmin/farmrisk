@@ -11,6 +11,7 @@ import {
 import {
   SIDEBAR_NAV_ITEMS,
   SIDEBAR_FOOTER_ITEMS,
+  content,
 } from "@/app/constants/content";
 import {
   Sidebar,
@@ -35,20 +36,17 @@ const iconMap: Record<string, LucideIcon> = {
 
 export function AppSidebar() {
   return (
-    <Sidebar className="border-r border-slate-800 bg-slate-900">
-      {/* 1. BRANDING HEADER */}
-      <SidebarHeader className="border-b border-slate-800 p-4">
-        <span className="text-lg font-bold text-emerald-500 tracking-wide">
-          FarmRisk Console
+    <Sidebar className="border-r border-slate-200 bg-white">
+      <SidebarHeader className="border-b border-slate-100 p-4">
+        <span className="text-lg font-bold tracking-wide text-emerald-700">
+          {content.title}
         </span>
       </SidebarHeader>
 
-      {/* 2. DYNAMIC MAIN CONTENT */}
       <SidebarContent>
         <SidebarGroup>
           <SidebarMenu>
             {SIDEBAR_NAV_ITEMS.map((item) => {
-              // Dynamically fetch the matching icon component, fallback to Help icon if missing
               const IconComponent = iconMap[item.iconName] || HelpCircle;
 
               return (
@@ -66,8 +64,7 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
 
-      {/* 3. DYNAMIC FOOTER */}
-      <SidebarFooter className="border-t border-slate-800 p-4">
+      <SidebarFooter className="border-t border-slate-100 p-4">
         <SidebarMenu>
           {SIDEBAR_FOOTER_ITEMS.map((item) => {
             const IconComponent = iconMap[item.iconName] || Settings;

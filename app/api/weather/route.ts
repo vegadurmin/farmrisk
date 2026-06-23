@@ -1,1 +1,7 @@
-// Routing for the Weather API endpoint
+export function GET() {
+  return Response.json(
+    { error: "Weather endpoint not implemented yet." },
+    { status: 501 },
+  );
+}
+

@@ -4,6 +4,11 @@ export const content = {
   title: "FarmRisk",
   description:
     "An advanced agricultural intelligence platform integrating high-resolution remote sensing, satellite field mapping, and real-time climate data. Empowering farmers with localized risk mitigation analytics and predictive AI insights to optimize crop yield and operational sustainability.",
+  heroEyebrow: "Satellite intelligence",
+  heroHeading: "See the field before the risk arrives.",
+  heroSubheading:
+    "Track crop conditions, weather pressure, and field changes from one live view built for faster decisions.",
+  heroCta: "Open Dashboard",
   version: "1.0.0",
 };
 
