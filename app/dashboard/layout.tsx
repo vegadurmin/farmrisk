@@ -1,8 +1,30 @@
-import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { redirect } from "next/navigation";
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import { content } from "@/app/constants/content";
+import { AUTH_CONFIG } from "@/lib/auth/config";
+import { hasDevSessionCookie } from "@/lib/auth/dev";
+import { createClient } from "@/supabase/server";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default async function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const supabase = await createClient();
+  const devSession = await hasDevSessionCookie();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user && !devSession) {
+    redirect(AUTH_CONFIG.loginPath);
+  }
+
   return (
     <SidebarProvider defaultOpen>
       <AppSidebar />

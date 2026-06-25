@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { content } from "./constants/content";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 export const metadata: Metadata = {
   title: content.title,
@@ -13,8 +14,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full antialiased font-sans">
-      <body className="min-h-full flex flex-col">{children}</body>
-    </html>
+    <TooltipProvider>
+      <html lang="en" className="h-full antialiased font-sans">
+        <body className="min-h-full flex flex-col">{children}</body>
+      </html>
+    </TooltipProvider>
   );
 }

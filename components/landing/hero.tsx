@@ -12,34 +12,14 @@ import { content } from "@/app/constants/content";
 const Hero = () => {
   return (
     <section className="relative isolate flex min-h-screen overflow-hidden bg-slate-950 text-white">
-      <motion.div
-        className="absolute inset-0"
-        initial={{
-          clipPath: "inset(18% 22% round 28px)",
-          scale: 0.92,
-          opacity: 0,
-        }}
-        animate={{
-          clipPath: "inset(0% 0% round 0px)",
-          scale: 1,
-          opacity: 1,
-        }}
-        transition={{ duration: 1, ease: "easeOut" }}
-        style={{
-          WebkitMaskImage:
-            "linear-gradient(to bottom, black 72%, transparent 100%)",
-          maskImage: "linear-gradient(to bottom, black 72%, transparent 100%)",
-        }}
-      >
-        <Image
-          src="/sat1.png"
-          alt="Satellite image of farmland"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-center"
-        />
-      </motion.div>
+      <Image
+        src="/sat1.png"
+        alt="Satellite image of farmland"
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover object-center"
+      />
 
       <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(2,6,23,0.2),rgba(2,6,23,0.36)_42%,rgba(2,6,23,0.92))]" />
       <div className="absolute inset-x-0 bottom-0 h-[40%] bg-gradient-to-b from-transparent via-slate-950/45 to-slate-950" />
@@ -68,12 +48,26 @@ const Hero = () => {
           {content.heroSubheading}
         </p>
 
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <Button asChild size="lg" className="gap-2 bg-emerald-500 text-slate-950 hover:bg-emerald-400">
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+          <Button
+            asChild
+            size="lg"
+            className="gap-2 bg-emerald-500 text-slate-950 hover:bg-emerald-400 font-semibold rounded-xl"
+          >
             <Link href="/dashboard">
               {content.heroCta}
               <ArrowRight className="size-4" />
             </Link>
+          </Button>
+          <Button
+            asChild
+            size="lg"
+            variant="outline"
+            className="border-white/10 bg-white/5 text-white hover:bg-white/10 rounded-xl"
+          >
+            <a href="#features">
+              Explore Capabilities
+            </a>
           </Button>
         </div>
       </div>

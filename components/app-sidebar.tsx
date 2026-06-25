@@ -23,6 +23,7 @@ import {
   SidebarMenuItem,
   SidebarGroup,
 } from "@/components/ui/sidebar";
+import { SidebarLogoutButton } from "@/components/auth/logout-button";
 
 // ─── ICON LOOKUP MAP ───
 // Maps your JSON icon strings to real Lucide React components
@@ -80,6 +81,9 @@ export function AppSidebar() {
               </SidebarMenuItem>
             );
           })}
+          <SidebarMenuItem>
+            <SidebarLogoutButton />
+          </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
     </Sidebar>
