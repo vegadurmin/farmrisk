@@ -5,7 +5,7 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
-import { content } from "@/app/constants/content";
+import { content } from "@/constants/content";
 import { AUTH_CONFIG } from "@/lib/auth/config";
 import { hasDevSessionCookie } from "@/lib/auth/dev";
 import { createClient } from "@/supabase/server";

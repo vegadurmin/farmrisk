@@ -12,7 +12,7 @@ import {
   SIDEBAR_NAV_ITEMS,
   SIDEBAR_FOOTER_ITEMS,
   content,
-} from "@/app/constants/content";
+} from "@/constants/content";
 import {
   Sidebar,
   SidebarContent,

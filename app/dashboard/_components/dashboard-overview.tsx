@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import type { ComponentType, ReactNode } from "react";
 
-import { content } from "@/app/constants/content";
+import { content } from "@/constants/content";
 import {
   aiOverview,
   forecast16Day,
@@ -148,11 +148,16 @@ function AiOverviewBlock() {
           </div>
         </div>
 
-        <p className="text-xs leading-5 text-slate-600 font-medium">{aiOverview.summary}</p>
+        <p className="text-xs leading-5 text-slate-600 font-medium">
+          {aiOverview.summary}
+        </p>
 
         <div className="space-y-3 pt-2">
           {aiOverview.recommendations.map((item) => (
-            <div key={item} className="flex gap-3 text-xs text-slate-700 leading-relaxed">
+            <div
+              key={item}
+              className="flex gap-3 text-xs text-slate-700 leading-relaxed"
+            >
               <Sparkles className="mt-0.5 size-4 shrink-0 text-emerald-600" />
               <span>{item}</span>
             </div>
@@ -186,7 +191,9 @@ function ForecastBlock() {
                     <p className="text-sm font-semibold text-slate-950">
                       {day.day}
                     </p>
-                    <p className="text-[10px] font-medium text-slate-400">{day.date}</p>
+                    <p className="text-[10px] font-medium text-slate-400">
+                      {day.date}
+                    </p>
                   </div>
                   <Icon className="size-5 text-amber-500 transition-transform group-hover:scale-110" />
                 </div>
@@ -198,7 +205,9 @@ function ForecastBlock() {
                     / {day.low}°C
                   </span>
                 </div>
-                <p className="mt-2 text-xs font-medium text-slate-600 leading-normal">{day.condition}</p>
+                <p className="mt-2 text-xs font-medium text-slate-600 leading-normal">
+                  {day.condition}
+                </p>
                 <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-slate-100">
                   <div
                     className="h-full rounded-full bg-gradient-to-r from-sky-400 to-blue-500"
@@ -229,7 +238,9 @@ function FarmTasksBlock() {
               key={task.label}
               className="flex items-start gap-4 rounded-lg border border-slate-100 bg-white p-4 shadow-xs transition-all hover:bg-slate-50/50"
             >
-              <div className={`flex size-10 shrink-0 items-center justify-center rounded-lg border ${task.color}`}>
+              <div
+                className={`flex size-10 shrink-0 items-center justify-center rounded-lg border ${task.color}`}
+              >
                 <Icon className="size-5" />
               </div>
               <div className="min-w-0 flex-1">
@@ -241,7 +252,9 @@ function FarmTasksBlock() {
                     {task.status}
                   </span>
                 </div>
-                <p className="mt-1 text-xs text-slate-500 truncate">{task.desc}</p>
+                <p className="mt-1 text-xs text-slate-500 truncate">
+                  {task.desc}
+                </p>
               </div>
             </div>
           );
