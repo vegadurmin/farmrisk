@@ -60,7 +60,7 @@ export function Solution() {
     <section
       id="solution"
       ref={containerRef}
-      className="relative w-full bg-linear-to-b from-background via-muted/20 to-background py-32 lg:py-20 px-6 overflow-hidden"
+      className="relative w-full bg-linear-to-b from-background pb-32 via-muted/20 to-background px-6 overflow-hidden"
     >
       {/* 🌌 Absolute Background Container */}
       <div className="absolute inset-x-0 bottom-0 top-0 -z-10 pointer-events-none overflow-hidden">
@@ -70,7 +70,7 @@ export function Solution() {
         </div>
 
         {/* Right Wheat: Tucked cleanly into the bottom-right corner */}
-        <div className="absolute right-0 bottom-0 translate-x-[10%] translate-y-[10%]">
+        <div className="absolute hidden sm:block right-0 bottom-0 translate-x-[10%] translate-y-[10%]">
           <WheatScrollWrapper scrollProgress={scrollYProgress} side="right" />
         </div>
       </div>

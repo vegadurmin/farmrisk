@@ -2,14 +2,14 @@
 import React from "react";
 import Link from "next/link";
 import { LayoutDashboard, Leaf, Menu, Pickaxe, X } from "lucide-react";
-import { AuthButtons } from "@/components/home/AuthButtons";
+import { AuthButtons } from "@/components/auth/AuthButtons";
 import { AnimatedGroup } from "@/components/ui/animated-group";
 import { cn } from "@/lib/utils";
 import { ModeToggle } from "../ThemeChange";
 import { Button } from "../ui/button";
 import { useLanguage } from "@/hooks/use-language";
 import { LanguageSwitcher } from "@/components/language-switcher";
-import { UserBaseCounter } from "@/components/home/UserCount";
+import { UserBaseCounter } from "@/components/ui/UserCount";
 import Image from "next/image";
 
 const transitionVariants = {
@@ -169,7 +169,7 @@ const HeroHeader = () => {
   const menuItems = [
     { name: t.nav.problem, href: "#problem" },
     { name: t.nav.solution, href: "#solution" },
-    { name: t.nav.features, href: "#feature" },
+    { name: t.nav.features, href: "#solution" },
   ];
 
   return (
