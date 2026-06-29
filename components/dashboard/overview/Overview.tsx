@@ -1,5 +1,5 @@
 import AIOverview from "./AIOverview";
-import Search from "./Search";
+import { LocationSearchBar } from "./LocationSearchBar";
 import Download from "./Download";
 import Forcast from "./Forcast";
 import Lightning from "./Lightning";
@@ -10,14 +10,14 @@ import Weather from "./Weather";
 const Overview = () => {
   return (
     <>
-      <Search />
-      <AIOverview />
-      <Weather />
       <Download />
+      <LocationSearchBar />
+      <Weather />
+      <AIOverview />
       <Forcast />
-      <Lightning />
       <HourlyWeather />
       <SoilMoisture />
+      <Lightning />
     </>
   );
 };

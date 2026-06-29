@@ -244,4 +244,32 @@ export const hi = {
       buttonText: "व्यक्तिगत डैशबोर्ड लॉगिन करें",
     },
   },
+  locationSearchBar: {
+    headerTitle: "गाँव और स्थान",
+    headerSubtitle: "भारत ग्राम खोज",
+    searchLabel: "गाँव खोजें",
+    searchPlaceholder: "गाँव, तालुका, जिला खोजें...",
+    noMatches:
+      "अभी तक कोई मेल नहीं मिला। कोई जिला, तालुका या पास का गाँव आज़माएँ।",
+    selectMapBtn: "मानचित्र से चुनें",
+    useLocationBtn: "मेरी वर्तमान स्थिति",
+    locatingState: "आपकी स्थिति खोजी जा रही है...",
+    selectedLocLabel: "चयनित स्थान",
+    latitudeLabel: "अक्षांश (Latitude)",
+    longitudeLabel: "देशांतर (Longitude)",
+    sourceLabel: "स्रोत",
+    notesTitle: "स्थान संबंधी टिप्पणियाँ",
+    notesBadge: "सटीक हैंडऑफ",
+    note1: "खोज ओपनस्ट्रीटमैप से भारत-बाधित गाँव के सुझावों का उपयोग करती है।",
+    note2:
+      "मानचित्र क्लिक उपलब्ध होने पर निकटतम स्थान नाम में परिवर्तित हो जाते हैं।",
+    note3:
+      "भविष्य के एपीआई काम के लिए निर्देशांकों को स्थिर स्रोत के रूप में रखा गया है।",
+    gpsStatus: "लाइव स्थान प्राप्त किया गया",
+    mapStatus: "मानचित्र बिंदु चयनित",
+    villageStatus: "गाँव चयनित",
+    checkingStatus: "मानचित्र बिंदु की जाँच हो रही है...",
+    gpsFail: "स्थान अनुमति अस्वीकार कर दी गई",
+    selectLocation: "स्थान चुनें",
+  },
 };
