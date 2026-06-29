@@ -7,9 +7,13 @@ import { cn } from "@/lib/utils";
 
 interface ModeToggleProps {
   isScrolled?: boolean;
+  rounded?: boolean;
 }
 
-export function ModeToggle({ isScrolled = true }: ModeToggleProps) {
+export function ModeToggle({
+  isScrolled = true,
+  rounded = true,
+}: ModeToggleProps) {
   const { ref, toggleSwitchTheme } = useModeAnimation({
     duration: 500,
   });
@@ -21,8 +25,9 @@ export function ModeToggle({ isScrolled = true }: ModeToggleProps) {
         variant="outline"
         size={isScrolled ? "icon-sm" : "icon-lg"}
         className={cn(
-          "text-black dark:text-white border-black/50 dark:border-slate-200/60 rounded-full cursor-pointer p-2",
+          "text-black dark:text-white border-border cursor-pointer p-2",
           isScrolled ? "w-10 h-10" : "",
+          rounded ? "rounded-full" : "rounded-md",
         )}
         onClick={toggleSwitchTheme}
         aria-label="Toggle theme"

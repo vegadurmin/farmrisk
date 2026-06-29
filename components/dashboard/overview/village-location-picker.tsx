@@ -15,7 +15,10 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
-import { selectedVillage, villages } from "../_data/dashboard-data";
+import {
+  selectedVillage,
+  villages,
+} from "@/components/dashboard/overview/dashboard-data";
 import { useLanguage } from "@/hooks/use-language";
 import { useLocationContext } from "@/providers/LocationProvider";
 

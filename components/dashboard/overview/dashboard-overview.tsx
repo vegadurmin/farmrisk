@@ -19,7 +19,10 @@ import {
 } from "lucide-react";
 import type { ComponentType, ReactNode } from "react";
 
-import { aiOverview, FARM_TASKS } from "../_data/dashboard-data";
+import {
+  aiOverview,
+  FARM_TASKS,
+} from "@/components/dashboard/overview/dashboard-data";
 import { VillageLocationPicker } from "./village-location-picker";
 import { useLanguage } from "@/hooks/use-language";
 import { useWeather, type WeatherIcon } from "@/hooks/use-weather";
@@ -59,7 +62,7 @@ function SectionCard({
 }) {
   return (
     <section
-      className={`min-w-0 rounded-lg border border-emerald-950/10 bg-white shadow-sm shadow-emerald-950/5 ${className}`}
+      className={`min-w-0 rounded-lg border border-emerald-950/10 bg-background shadow-sm shadow-emerald-950/5 ${className}`}
     >
       {children}
     </section>
