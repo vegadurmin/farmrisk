@@ -123,6 +123,16 @@ function resolveWmo(code: number): WmoEntry {
 // Open-Meteo response shape (partial)
 
 type OpenMeteoResponse = {
+  current: {
+    time: string;
+    temperature_2m: number;
+    relative_humidity_2m: number;
+    apparent_temperature: number;
+    weather_code: number;
+    pressure_msl: number;
+    wind_speed_10m: number;
+    wind_gusts_10m: number;
+  };
   hourly: {
     time: string[];
     temperature_2m: number[];
@@ -207,6 +217,10 @@ export async function GET(request: NextRequest) {
   url.searchParams.set("latitude", String(latNum));
   url.searchParams.set("longitude", String(lngNum));
   url.searchParams.set(
+    "current",
+    "temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,pressure_msl,wind_speed_10m,wind_gusts_10m"
+  );
+  url.searchParams.set(
     "hourly",
     "temperature_2m,precipitation_probability,windspeed_10m,weathercode",
   );
@@ -270,5 +284,18 @@ export async function GET(request: NextRequest) {
     };
   });
 
-  return Response.json({ hourly, forecast });
+  // ---- Current Weather ----
+  const wmoCurrent = resolveWmo(raw.current.weather_code);
+  const current = {
+    temp: Math.round(raw.current.temperature_2m),
+    condition: wmoCurrent.condition,
+    icon: wmoCurrent.icon,
+    humidity: raw.current.relative_humidity_2m,
+    apparentTemp: Math.round(raw.current.apparent_temperature),
+    windKph: Math.round(raw.current.wind_speed_10m),
+    windGustsKph: Math.round(raw.current.wind_gusts_10m),
+    pressureMb: Math.round(raw.current.pressure_msl),
+  };
+
+  return Response.json({ current, hourly, forecast });
 }

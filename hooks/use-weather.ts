@@ -40,7 +40,19 @@ export type ForecastSlot = {
   icon: WeatherIcon;
 };
 
+export type CurrentWeather = {
+  temp: number;
+  condition: WeatherCondition;
+  icon: WeatherIcon;
+  humidity: number;
+  apparentTemp: number;
+  windKph: number;
+  windGustsKph: number;
+  pressureMb: number;
+};
+
 type WeatherPayload = {
+  current: CurrentWeather;
   hourly: HourlySlot[];
   forecast: ForecastSlot[];
 };
@@ -50,6 +62,7 @@ type WeatherState =
   | { status: "loading" }
   | { status: "success"; data: WeatherPayload }
   | { status: "error"; message: string };
+
 //hook
 export function useWeather() {
   const { location } = useLocationContext();
@@ -89,6 +102,7 @@ export function useWeather() {
     isLoading: state.status === "loading" || state.status === "idle",
     isError: state.status === "error",
     errorMessage: state.status === "error" ? state.message : undefined,
+    current: state.status === "success" ? state.data.current : undefined,
     hourly: state.status === "success" ? state.data.hourly : undefined,
     forecast: state.status === "success" ? state.data.forecast : undefined,
   };
