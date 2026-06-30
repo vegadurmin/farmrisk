@@ -9,9 +9,13 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useLocationContext } from "@/providers/LocationProvider";
+import {
+  type SelectedLocation,
+  useLocationContext,
+} from "@/providers/LocationProvider";
 import { useLanguage } from "@/hooks/use-language";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useWeather } from "@/hooks/use-weather";
 
 // Define structured options for the agricultural context filter
 const CROP_OPTIONS = [
@@ -20,23 +24,91 @@ const CROP_OPTIONS = [
   { id: "maize", name: "Maize / Corn", icon: Wheat },
 ];
 
-interface AIOverviewProps {
-  getAdvisory: (cropId: string) => string;
-}
-
-const AIOverview = ({ getAdvisory }: AIOverviewProps) => {
+const AIOverview = () => {
   const { language } = useLanguage();
   const { location } = useLocationContext();
+  const weatherData = useWeather();
   const [selectedCrop, setSelectedCrop] = useState(CROP_OPTIONS[0]);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [advisoryText, setAdvisoryText] = useState("");
 
-  // Trigger simulated loader when location coordinates or crop configurations update
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+  const { isLoading, current, hourly, forecast } = weatherData;
+
+  // Trigger POST request to /api/ai with localized, simplified weather details
+  const getAIAdvisory = async (
+    cropId: string,
+    loc: SelectedLocation,
+    lang: string,
+  ) => {
     setIsGenerating(true);
-    const timer = setTimeout(() => setIsGenerating(false), 700);
-    return () => clearTimeout(timer);
-  }, [location.lat, location.lng, selectedCrop.id]);
+    try {
+      // Localize weather strings to only the currently selected language
+      const simplifiedWeather = {
+        current: current
+          ? {
+              temp: current.temp,
+              condition: current.condition[lang] || current.condition.en,
+              humidity: current.humidity,
+              apparentTemp: current.apparentTemp,
+              windKph: current.windKph,
+              windGustsKph: current.windGustsKph,
+              pressureMb: current.pressureMb,
+            }
+          : undefined,
+        hourly:
+          hourly?.map((h) => ({
+            time: h.time,
+            temp: h.temp,
+            condition: h.condition[lang] || h.condition.en,
+            rainChance: h.rainChance,
+            windKph: h.windKph,
+          })) || [],
+        forecast:
+          forecast?.map((f) => ({
+            date: f.date,
+            day: f.day[lang] || f.day.en,
+            high: f.high,
+            low: f.low,
+            condition: f.condition[lang] || f.condition.en,
+            rainChance: f.rainChance,
+          })) || [],
+      };
+
+      const response = await fetch("/api/ai", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          cropId,
+          location: loc,
+          weather: simplifiedWeather,
+          language: lang,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`API error code: ${response.status}`);
+      }
+
+      const resData = await response.json();
+      setAdvisoryText(
+        resData.advisory || "No advisory text could be generated.",
+      );
+    } catch (err) {
+      console.error("AI advisory fetch failed:", err);
+      setAdvisoryText(
+        "Failed to retrieve advisory. Please check your network connection.",
+      );
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
+  // Fetch new advisory whenever coordinate, crop, or language parameters change
+  useEffect(() => {
+    if (!isLoading && current) {
+      getAIAdvisory(selectedCrop.id, location, language);
+    }
+  }, [location.lat, location.lng, selectedCrop.id, language, isLoading]);
 
   const ActiveIcon = selectedCrop.icon;
 
@@ -108,7 +180,7 @@ const AIOverview = ({ getAdvisory }: AIOverviewProps) => {
 
       {/* CORE CONTENT SLOT: Scrollable container with simulated generation skeleton loaders */}
       <div className="flex-1 min-h-0 flex flex-col justify-start">
-        {isGenerating ? (
+        {isGenerating || isLoading ? (
           <div className="space-y-2 mt-1">
             <Skeleton className="h-4 w-full rounded-sm" />
             <Skeleton className="h-4 w-[92%] rounded-sm" />
@@ -118,8 +190,8 @@ const AIOverview = ({ getAdvisory }: AIOverviewProps) => {
           </div>
         ) : (
           <div className="overflow-y-auto pr-1 h-full scrollbar-thin scrollbar-thumb-emerald-500/20 scrollbar-track-transparent">
-            <p className="text-xs sm:text-sm text-foreground/90 font-medium leading-relaxed tracking-normal animate-in fade-in duration-300">
-              {getAdvisory(selectedCrop.id)}
+            <p className="text-xs sm:text-sm text-foreground/90 font-medium leading-relaxed tracking-normal whitespace-pre-wrap animate-in fade-in duration-300">
+              {advisoryText}
             </p>
           </div>
         )}

@@ -19,7 +19,7 @@ export default async function DashboardLayout({
       <LocationProvider>
         <SidebarProvider defaultOpen>
           <AppSidebar />
-          <div className="pt-(--standalone) flex flex-col gap-3 w-[calc(100vw-24px)] justify-center m-3 lg:ml-0 md:ml-0 h-[calc(100vh-24px)]">
+          <div className="pt-(--standalone) flex flex-col gap-3 flex-1 min-w-0 m-3 h-[calc(100vh-24px)] lg:ml-0 md:ml-0">
             <div className="flex justify-between items-center">
               <div className="flex gap-3">
                 <div className="flex items-center justify-center rounded-md gap-3 w-10">

@@ -65,10 +65,12 @@ type WeatherState =
 
 //hook
 export function useWeather() {
-  const { location } = useLocationContext();
+  const { location, isResolving } = useLocationContext();
   const [state, setState] = useState<WeatherState>({ status: "loading" });
 
   useEffect(() => {
+    if (isResolving) return; // Wait until initial geolocation coordinates are resolved on load
+
     let cancelled = false;
     setState({ status: "loading" });
 
@@ -96,14 +98,14 @@ export function useWeather() {
     return () => {
       cancelled = true;
     };
-  }, [location.lat, location.lng]);
+  }, [location.lat, location.lng, isResolving]);
 
   return {
-    isLoading: state.status === "loading" || state.status === "idle",
-    isError: state.status === "error",
-    errorMessage: state.status === "error" ? state.message : undefined,
-    current: state.status === "success" ? state.data.current : undefined,
-    hourly: state.status === "success" ? state.data.hourly : undefined,
-    forecast: state.status === "success" ? state.data.forecast : undefined,
+    isLoading: isResolving || state.status === "loading" || state.status === "idle",
+    isError: !isResolving && state.status === "error",
+    errorMessage: !isResolving && state.status === "error" ? state.message : undefined,
+    current: !isResolving && state.status === "success" ? state.data.current : undefined,
+    hourly: !isResolving && state.status === "success" ? state.data.hourly : undefined,
+    forecast: !isResolving && state.status === "success" ? state.data.forecast : undefined,
   };
 }

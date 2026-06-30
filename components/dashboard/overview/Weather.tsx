@@ -53,11 +53,11 @@ const Weather = ({ weatherData }: WeatherProps) => {
           <Skeleton className="h-12 w-full rounded-lg" />
         </div>
         <div className="flex flex-row flex-wrap gap-4 items-center justify-between flex-1 mt-4">
-          <div className="flex-1 min-w-[130px] space-y-2">
+          <div className="flex-1 min-w-32.5 space-y-2">
             <Skeleton className="h-10 w-2/3" />
             <Skeleton className="h-4 w-1/2" />
           </div>
-          <div className="w-full @[380px]:w-[185px] shrink-0 space-y-2.5">
+          <div className="w-full @[380px]:w-46.25 shrink-0 space-y-2.5">
             <Skeleton className="h-4 w-full" />
             <Skeleton className="h-4 w-full" />
             <Skeleton className="h-4 w-full" />
@@ -71,14 +71,14 @@ const Weather = ({ weatherData }: WeatherProps) => {
   // Error boundary rendering
   if (isError || !current) {
     return (
-      <div className="w-full h-full min-h-[220px] bg-card border border-border text-foreground rounded-xl shadow-sm p-5 flex flex-col items-center justify-center select-none text-center">
+      <div className="w-full h-full min-h-55 bg-card border border-border text-foreground rounded-xl shadow-sm p-5 flex flex-col items-center justify-center select-none text-center">
         <CloudSun className="size-12 text-muted-foreground/60 mb-2 animate-bounce" />
         <h3 className="font-semibold text-sm">
           {language === "hi"
             ? "मौसम डेटा लोड करने में विफल"
             : "Failed to load weather data"}
         </h3>
-        <p className="text-xs text-muted-foreground mt-1 max-w-[220px]">
+        <p className="text-xs text-muted-foreground mt-1 max-w-55">
           {errorMessage ||
             (language === "hi"
               ? "कृपया कनेक्शन जांचें या पुनः प्रयास करें।"
@@ -114,12 +114,12 @@ const Weather = ({ weatherData }: WeatherProps) => {
       {/* 3. CORE ADVISORY SEGMENT SPLIT LAYOUT (Using Flex Wrap & Container Queries) */}
       <div className="flex flex-row flex-wrap gap-4 items-center justify-between flex-1 min-h-0">
         {/* LEFT COLUMN: THE EXECUTIVE TEMPERATURE HOOK */}
-        <div className="flex flex-col flex-1 min-w-[130px]">
+        <div className="flex flex-col flex-1 min-w-32.5">
           <div className="flex items-baseline gap-1.5">
             <span className="text-5xl font-extrabold tracking-tighter">
               {current.temp}°C
             </span>
-            <span className="text-muted-foreground text-xs font-medium max-w-[85px] truncate">
+            <span className="text-muted-foreground text-xs font-medium max-w-21.25 truncate">
               {current.condition[language] || current.condition.en}
             </span>
           </div>
@@ -132,7 +132,7 @@ const Weather = ({ weatherData }: WeatherProps) => {
         </div>
 
         {/* RIGHT COLUMN: HIGH-DENSITY METRICS DOCK (Responsive container wrapping & border toggle) */}
-        <div className="space-y-2 border-t @[380px]:border-t-0 @[380px]:border-l border-border pt-3 @[380px]:pt-0 @[380px]:pl-3 w-full @[380px]:w-[185px] shrink-0 min-w-[185px]">
+        <div className="space-y-2 border-t @[380px]:border-t-0 @[380px]:border-l border-border pt-3 @[380px]:pt-0 @[380px]:pl-3 w-full @[380px]:w-46.25 shrink-0 min-w-46.25">
           {/* Metric Row: Humidity */}
           <div className="flex items-center justify-between gap-2 text-xs">
             <div className="flex items-center gap-1.5 text-muted-foreground min-w-0">
@@ -150,7 +150,7 @@ const Weather = ({ weatherData }: WeatherProps) => {
               <Wind className="size-3.5 shrink-0 text-sky-500" />
               <span className="truncate">Wind</span>
             </div>
-            <span className="font-semibold text-right shrink-0 truncate max-w-[85px]">
+            <span className="font-semibold text-right shrink-0 truncate max-w-21.25">
               {current.windKph} km/h
             </span>
           </div>
@@ -161,7 +161,7 @@ const Weather = ({ weatherData }: WeatherProps) => {
               <Wind className="size-3.5 shrink-0 opacity-40 text-sky-400" />
               <span className="truncate">Gusts</span>
             </div>
-            <span className="font-medium text-right shrink-0 truncate max-w-[85px]">
+            <span className="font-medium text-right shrink-0 truncate max-w-21.25">
               {current.windGustsKph} km/h
             </span>
           </div>
